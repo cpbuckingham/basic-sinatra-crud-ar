@@ -1,0 +1,12 @@
+<h1>Welcome, <%= username %></h1>
+<ul>
+  <% @database_connection.sql("Select username from users order by username ASC").each do |user_hash| %>
+    <li><%= user_hash["username"] unless user_hash["username"] == username %></li>
+  <% end %>
+</ul>
+<form method="get" action="/">
+  <input type="submit" value="Logout"/>
+</form>
+<br>
+<br>
+<br>

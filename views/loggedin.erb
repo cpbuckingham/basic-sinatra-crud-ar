@@ -1,0 +1,53 @@
+<h1>Welcome, <%= username %></h1>
+
+<br>
+
+<h3> Here are your users </h3>
+
+<br>
+
+<ul>
+  <% @list_users.each do |user_hash| %>
+    <li><%= user_hash["username"] unless user_hash["username"] == username %></li>
+  <% end %>
+</ul>
+
+<br>
+<br>
+
+<ul>
+  <% @database_connection.sql("Select name, wiki from fish").each do |fish_hash| %>
+    <li><%= fish_hash["name"] %></li>
+    <li><%= fish_hash["wiki"] %></li>
+
+<% end %>
+</ul>
+
+<br>
+<br>
+
+<form method="get" action="/users_alphabet">
+  <button>List users alphabetically</button>
+</form>
+
+<br>
+<br>
+
+<form method="post" action="/users_alphabet">
+  <label for="delete">Which user do you want to delete?</label>
+  <input type="delete" name="name" id="delete" class="textbox"/>
+  <button type="submit">Delete this user</button>
+</form>
+<br>
+<form method="post" action="/add_fish">
+  <label for="fish_name">Put the name of a fish you would like to add:
+    <input name="fish_name" id="fish_name" class="textbox"/></label><br>
+  <label for="fish_wiki">Add a link to the fish's wikipedia page
+    <input name="fish_wiki" id="fish_wiki" class="textbox"/></label><br>
+  <button type="submit">Add the fish!</button>
+</form>
+<br>
+<br>
+<form method="get" action="/">
+  <input type="submit" value="Logout"/>
+</form>
