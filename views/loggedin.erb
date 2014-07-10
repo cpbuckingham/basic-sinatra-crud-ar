@@ -1,51 +1,50 @@
-<h1>Welcome, <%= username %></h1>
-
+<h1>Welcome, <%= @database_connection.sql("select username from users where id = '#{session[:user]}'").reduce["username"] %></h1>
 <br>
-
 <h3> Here are your users </h3>
-
-<br>
-
 <ul>
   <% @list_users.each do |user_hash| %>
-    <li><%= user_hash["username"] unless user_hash["username"] == username %></li>
+    <li><%= user_hash["username"] unless user_hash["username"] == @database_connection.sql("select username from users where id = '#{session[:user]}'").reduce["username"] %></li>
   <% end %>
 </ul>
-
-<br>
-<br>
-
-<ul>
-  <% @database_connection.sql("Select name, wiki from fish").each do |fish_hash| %>
-    <li><%= fish_hash["name"] %></li>
-    <li><%= fish_hash["wiki"] %></li>
-
-<% end %>
-</ul>
-
-<br>
-<br>
-
 <form method="get" action="/users_alphabet">
   <button>List users alphabetically</button>
 </form>
-
 <br>
-<br>
-
 <form method="post" action="/users_alphabet">
   <label for="delete">Which user do you want to delete?</label>
   <input type="delete" name="name" id="delete" class="textbox"/>
   <button type="submit">Delete this user</button>
 </form>
 <br>
+<br>
+<br>
 <form method="post" action="/add_fish">
-  <label for="fish_name">Put the name of a fish you would like to add:
+  <label for="fish_name">Add fish name:
     <input name="fish_name" id="fish_name" class="textbox"/></label><br>
-  <label for="fish_wiki">Add a link to the fish's wikipedia page
-    <input name="fish_wiki" id="fish_wiki" class="textbox"/></label><br>
+  <label for="fish_wiki">Add link to fish's wikipedia page
+    <input name="fish_wiki" id="fish_wiki" class="textbox"/></label>
   <button type="submit">Add the fish!</button>
 </form>
+<dl>
+  <% @users_fish.each do |fish_hash| %>
+    <dt><%= fish_hash["name"] %></dt>
+    <dd><a href="<%= fish_hash["wiki"] %>"><%= fish_hash["wiki"] %></a></dd>
+    <br>
+    <form method="post" action="/loggedin">
+      <label for="delete">Which fish do you want to delete?</label>
+      <input type="delete" name="name" id="delete" class="textbox"/>
+      <button type="submit">Delete this fish</button>
+    </form>
+    <dd>
+      <% fish_id = fish_hash["id"] %>
+      <form method="post" action="/favorite_fish">
+        <button name="<%= fish_id %>">Favorite this fish</button>
+      </form>
+    </dd>
+  <% end %>
+</dl>
+
+<br>
 <br>
 <br>
 <form method="get" action="/">

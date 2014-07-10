@@ -22,17 +22,34 @@ class App < Sinatra::Application
     if @database_connection.sql("SELECT username, password from users where username = '#{username}' and password = '#{password}'") == []
       flash[:notice] = "Incorrect Username and Password"
     else
-      # user_id_hash = session[:user] = @database_connection.sql("Select id from users where username = '#{username}'").reduce
-      # user_id = user_id_hash["id"]
-      session[:user] = username
+      user_id_hash = session[:user] = @database_connection.sql("Select id from users where username = '#{username}'").reduce
+      user_id = user_id_hash["id"]
+      session[:user] = user_id
       @list_users = @database_connection.sql("Select username from users")
+      @users_fish = @database_connection.sql("SELECT name, wiki from fish where user_id = #{session[:user]}")
       erb :loggedin, :locals => {:username => username}
     end
   end
   get "/loggedin" do
-    username =session[:user]
+    user_id =session[:user]
+    @users_fish = @database_connection.sql("SELECT * from fish where user_id = #{session[:user]}")
     @list_users = @database_connection.sql("Select username from users")
-    erb :loggedin, :locals => {:username => username}
+
+    erb :loggedin, :locals => {:username => user_id}
+  end
+
+  post "/favorite_fish" do
+    user_id = session[:user]
+    fish_id = params[:fish_id].to_i
+    @favorite_fish = @database_connection.sql("insert into favorite (fish_id, user_id) values ('#{fish_id}', '#{user_id}')")
+    redirect "/loggedin"
+  end
+
+  post "/loggedin" do
+    name = params[:name]
+    @database_connection.sql("delete from fish where name= '#{name}'")
+    flash[:notice] = "BAM! fish is gone."
+    redirect "/loggedin"
   end
 
   get "/registration" do
@@ -63,8 +80,8 @@ class App < Sinatra::Application
   end
 
   get"/users_alphabet" do
-    username = session[:user]
-    erb :users_alphabet, :locals => {:username => username}
+    user_id = session[:user]
+    erb :users_alphabet, :locals => {:username => user_id}
   end
 
   post "/users_alphabet" do
@@ -78,6 +95,7 @@ class App < Sinatra::Application
     fish_name = params[:fish_name]
     fish_wiki = params[:fish_wiki]
     @database_connection.sql("INSERT INTO fish (name, wiki, user_id) values ('#{fish_name}', '#{fish_wiki}', #{session[:user]})")
+    redirect "/loggedin"
   end
 
 end
