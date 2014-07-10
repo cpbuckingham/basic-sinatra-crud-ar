@@ -1,0 +1,57 @@
+body {
+    background-color:#f4f4f4;
+
+}
+
+header {
+    background-color: #c5c5c5;  /* Dark Grey */
+    text-align: center;
+}
+
+header img {
+    width: 65%;
+    height: 300px;
+}
+
+nav {
+    background-color: #f4f4f4;  /* Light Grey */
+}
+
+#content {
+    background-color: #fff;  /* White */
+    display: inline-block;
+}
+
+footer {
+    background-color: #c5c5c5;  /* Dark Grey */
+}
+
+.wrapper {
+    margin: auto;
+    width: 980px;
+}
+
+#fish {
+background-color: deeppink;
+width: 48%;
+float: right;
+}
+
+#welcome {
+    text-align: center;
+}
+
+#users {
+    background-color: lime;
+    width: 48%;
+    float: left;
+}
+
+#logout {
+    background-color: teal;
+    width: 32%;
+    height: 25%;
+    float: right;
+    font-size: 2.5em;
+    margin-top: 10%
+}

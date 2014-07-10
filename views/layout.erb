@@ -2,10 +2,15 @@
 <html>
 <head>
   <title>Fish.ly</title>
-  <!--<link rel="stylesheet" type="text/css" href="app.css">-->
+  <link rel="stylesheet" type="text/css" href="fish.css">
 </head>
 <body>
-<div id="wrapper">
+<header>
+  <h1>FISH.LY</h1>
+  <img src="http://dudye.com/wp-content/uploads/2010/11/Synchiropus-splendidus.jpg">
+</header>
+<div id="content">
+<div class="wrapper">
   <% if flash[:notice] %>
     <p><%= flash[:notice] %></p>
   <% end %>
@@ -14,7 +19,7 @@
   <div>
     <%= yield %>
   </div>
-
+</div>
 </div>
 </body>
 </html>

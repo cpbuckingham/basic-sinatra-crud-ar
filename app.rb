@@ -34,6 +34,7 @@ class App < Sinatra::Application
     user_id =session[:user]
     @users_fish = @database_connection.sql("SELECT * from fish where user_id = #{session[:user]}")
     @list_users = @database_connection.sql("Select username from users")
+    @fish_id = @database_connection.sql("select fish_id from favorite")
 
     erb :loggedin, :locals => {:username => user_id}
   end
@@ -43,6 +44,7 @@ class App < Sinatra::Application
     fish_id = params[:fish_id].to_i
     @favorite_fish = @database_connection.sql("insert into favorite (fish_id, user_id) values ('#{fish_id}', '#{user_id}')")
     redirect "/loggedin"
+    flash[:notice] = "yeah! you like that fish"
   end
 
   post "/loggedin" do
@@ -97,6 +99,4 @@ class App < Sinatra::Application
     @database_connection.sql("INSERT INTO fish (name, wiki, user_id) values ('#{fish_name}', '#{fish_wiki}', #{session[:user]})")
     redirect "/loggedin"
   end
-
 end
-

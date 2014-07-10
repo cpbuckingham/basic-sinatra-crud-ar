@@ -1,5 +1,6 @@
-<h1>Welcome, <%= @database_connection.sql("select username from users where id = '#{session[:user]}'").reduce["username"] %></h1>
+<h1 id="welcome">Welcome, <%= @database_connection.sql("select username from users where id = '#{session[:user]}'").reduce["username"] %></h1>
 <br>
+<div id="users">
 <h3> Here are your users </h3>
 <ul>
   <% @list_users.each do |user_hash| %>
@@ -18,7 +19,12 @@
 <br>
 <br>
 <br>
-<form method="post" action="/add_fish">
+</div>
+
+<div id="fish">
+  <h3> Here are your fishes </h3>
+<br>
+  <form method="post" action="/add_fish">
   <label for="fish_name">Add fish name:
     <input name="fish_name" id="fish_name" class="textbox"/></label><br>
   <label for="fish_wiki">Add link to fish's wikipedia page
@@ -29,24 +35,25 @@
   <% @users_fish.each do |fish_hash| %>
     <dt><%= fish_hash["name"] %></dt>
     <dd><a href="<%= fish_hash["wiki"] %>"><%= fish_hash["wiki"] %></a></dd>
+    <dd>
+      <!--<% @fish_id = fish_hash["id"] %>-->
+      <form method="post" action="/favorite_fish">
+        <button name="<%= fish_hash["name"] %>">Favorite this fish</button>
+      </form>
+  <% end %>
+  </dd>
     <br>
     <form method="post" action="/loggedin">
       <label for="delete">Which fish do you want to delete?</label>
       <input type="delete" name="name" id="delete" class="textbox"/>
       <button type="submit">Delete this fish</button>
     </form>
-    <dd>
-      <% fish_id = fish_hash["id"] %>
-      <form method="post" action="/favorite_fish">
-        <button name="<%= fish_id %>">Favorite this fish</button>
-      </form>
-    </dd>
-  <% end %>
 </dl>
 
+</div>
 <br>
 <br>
 <br>
-<form method="get" action="/">
-  <input type="submit" value="Logout"/>
+<form  method="get" action="/">
+  <input id="logout" type="submit" value="Logout"/>
 </form>
