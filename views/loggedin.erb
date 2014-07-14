@@ -9,8 +9,10 @@
 </ul>
 <form method="get" action="/users_alphabet">
   <button>List users alphabetically</button>
-</form>
-<br>
+</form><br>
+ <form method="get" action="/users_descending">
+    <button>List users in descending order</button>
+  </form><br>
 <form method="post" action="/users_alphabet">
   <label for="delete">Which user do you want to delete?</label>
   <input type="delete" name="name" id="delete" class="textbox"/>
@@ -36,11 +38,13 @@
     <dt><%= fish_hash["name"] %></dt>
     <dd><a href="<%= fish_hash["wiki"] %>"><%= fish_hash["wiki"] %></a></dd>
     <dd>
-      <!--<% @fish_id = fish_hash["id"] %>-->
+      <!--<% @fish_id = fish_hash["fish_id"] %>-->
       <form method="post" action="/favorite_fish">
+        <input type="hidden" value="<%= fish_hash["id"] %>" name="fish_id">
         <button name="<%= fish_hash["name"] %>">Favorite this fish</button>
+      <button name="<%= fish_hash["name"] %>">Unfavorite this fish</button>
       </form>
-  <% end %>
+<% end %>
   </dd>
     <br>
     <form method="post" action="/loggedin">

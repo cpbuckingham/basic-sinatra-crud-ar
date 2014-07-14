@@ -1,6 +1,5 @@
 require "sinatra"
-require "active_record"
-require "./lib/database_connection"
+require "gschool_database_connection"
 require "rack-flash"
 
 
@@ -10,7 +9,7 @@ class App < Sinatra::Application
 
   def initialize
     super
-    @database_connection = DatabaseConnection.establish(ENV["RACK_ENV"])
+    @database_connection = GschoolDatabaseConnection::DatabaseConnection.establish(ENV["RACK_ENV"])
   end
 
   get "/" do
@@ -45,6 +44,12 @@ class App < Sinatra::Application
     @favorite_fish = @database_connection.sql("insert into favorite (fish_id, user_id) values ('#{fish_id}', '#{user_id}')")
     redirect "/loggedin"
     flash[:notice] = "yeah! you like that fish"
+  end
+  post "/unfavorite_fish" do
+    user_id = session[:user]
+    @unfavorite_fish = @database_connection.sql("delete from favorite where fish_id ='#{user_id}'")
+    redirect "/loggedin"
+    flash[:notice] = "bummer! you don't like that fish"
   end
 
   post "/loggedin" do
@@ -81,7 +86,7 @@ class App < Sinatra::Application
     redirect back
   end
 
-  get"/users_alphabet" do
+  get "/users_alphabet" do
     user_id = session[:user]
     erb :users_alphabet, :locals => {:username => user_id}
   end
@@ -106,3 +111,4 @@ class App < Sinatra::Application
     redirect "/loggedin"
   end
 end
+
