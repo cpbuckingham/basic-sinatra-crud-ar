@@ -1,0 +1,13 @@
+<h1>Welcome, <%= @database_connection.sql("select username from users where id = '#{session[:user]}'").reduce["username"]%></h1>
+<ul>
+  <% @database_connection.sql("Select username from users order by username DESC").each do |user_hash| %>
+    <li><%= user_hash["username"] unless user_hash["username"] == @database_connection.sql("select username from users where id = '#{session[:user]}'").reduce["username"]%></li>
+  <% end %>
+</ul>
+<form method="get" action="/loggedin">
+  <input type="submit" value="back"/>
+</form>
+<br>
+<form method="get" action="/">
+  <input type="submit" value="Logout"/>
+</form>

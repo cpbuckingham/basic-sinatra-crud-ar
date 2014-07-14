@@ -93,6 +93,12 @@ class App < Sinatra::Application
     redirect "/loggedin"
   end
 
+  get "/users_descending" do
+    users_id = session[:user]
+    erb :users_descending, :locals => {:username => users_id}
+  end
+
+
   post "/add_fish" do
     fish_name = params[:fish_name]
     fish_wiki = params[:fish_wiki]
