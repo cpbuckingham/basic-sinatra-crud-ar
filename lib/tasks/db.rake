@@ -1,6 +1,7 @@
 require "active_record"
 require "yaml"
 
+
 def env
   ENV["RACK_ENV"] || "development"
 end
