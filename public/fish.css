@@ -32,7 +32,7 @@ footer {
 }
 
 #fish {
-background-color: deeppink;
+background-color: yellow;
 width: 48%;
 float: right;
 }
@@ -42,7 +42,7 @@ float: right;
 }
 
 #users {
-    background-color: lime;
+    background-color: red;
     width: 48%;
     float: left;
 }
@@ -54,4 +54,25 @@ float: right;
     float: right;
     font-size: 2.5em;
     margin-top: 10%
+}
+#register {
+    top: 25%;
+    bottom: 25%;
+    text-align: center;
+    background-color: deeppink;
+    width: 25%;
+    margin-right: 400px;
+    margin-left: 250px;
+
+}
+
+#login {
+    top: 25%;
+    bottom: 25%;
+    text-align: center;
+    background-color: deeppink;
+    width: 25%;
+    margin-right: 400px;
+    margin-left: 250px;
+
 }

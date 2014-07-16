@@ -1,6 +1,6 @@
 class CreateFish < ActiveRecord::Migration
   def up
-    create_table :users do |t|
+    create_table :fish do |t|
       t.string :fish_name
       t.string :wiki_link
     end
