@@ -107,7 +107,7 @@ class App < Sinatra::Application
   post "/add_fish" do
     fish_name = params[:fish_name]
     fish_wiki = params[:fish_wiki]
-    @database_connection.sql("INSERT INTO fish (fish_name, wiki_link, user_id) values ('#{fish_name}', '#{fish_wiki}', #{session[:user]})")
+    @database_connection.sql("INSERT INTO fish (name, wiki, user_id) values ('#{fish_name}', '#{fish_wiki}', #{session[:user]})")
     redirect "/loggedin"
   end
 end
