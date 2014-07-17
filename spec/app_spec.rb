@@ -1,8 +1,9 @@
 require "spec_helper"
 before do
   @database_connection.sql("INSERT INTO users (username, password) VALUES ('cam', 'jam')")
+  @database_connection.sql("INSERT INTO users (username, password) VALUES ('pete', 'butts')")
 end
-feature "See Homepage" do
+feature "Fish.ly" do
   scenario "A anonymous user can see the register button on homepage" do
     visit "/"
     click_link "Register"
@@ -42,78 +43,26 @@ feature "See Homepage" do
     fill_in "Password", with: "jam"
     click_button "Login"
     expect(page).to have_content('Welcome, cam')
-
-
   end
   scenario "User can sort names" do
+    visit "/users_alphabet"
+    expect(page).to have_content("It's sorted alphabetically")
+  end
+  scenario "User can sort names" do
+    visit "/users_descending"
+    expect(page).to have_content("It's sorted in descending order")
+  end
+  scenario "logout button exists" do
     visit "/loggedin"
-    click_button 'List users alphabetically'
+    click_button "Logout"
+    expect(page).to have_content "Register"
+  end
+  scenario "logged in user can delete other users" do
+    visit "/loggedin"
+    fill_in "delete", with: "pete"
+    expect(page).to have_no_content ("pete")
+
   end
 
-
 end
-
-
-#     #scenario "User can sort names" do
-#     visit "/"
-#     click_link "Register"
-#     fill_in "username", with: "zeta"
-#     fill_in "password", with: "zeta"
-#     click_button "Register"
-#
-#     click_link "Register"
-#     fill_in "username", with: "alpha"
-#     fill_in "password", with: "alpha"
-#     click_button "Register"
-#     visit "/"
-#
-#     #can login
-#     fill_in "username", with: "blah"
-#     fill_in "password", with: "blah"
-#     click_button "Sign In"
-#
-#     #sees logged-in homepage
-#     expect(page).to have_content("blah", count: 1)
-#     expect(page).to have_content("Welcome, blah")
-#     expect(page).to have_content("zeta")
-#
-#     #can alphabetize userlist
-#     click_button "Order"
-#
-#     expect(page).to have_selector("table tr:nth-child(2)", :text => "alpha")
-#
-#     #can delete users
-#     click_link("delete", options={href: "/delete/zeta"})
-#     expect(page).to_not have_content("zeta")
-#
-#     #user can create a fish
-#     click_link("Create a Fish!")
-#     fill_in "fishname", with: "Goldfish"
-#     click_button "Create"
-#     expect(page).to have_link("Wikipedia", options={href: "http://en.wikipedia.org/wiki/Goldfish"})
-#
-#     #scenario "I can log out of homepage" do
-#     click_button "Log Out"
-#     expect(page).to have_content("Sign In")
-#
-#     #user only sees their fish
-#     fill_in "username", with: "alpha"
-#     fill_in "password", with: "alpha"
-#     click_button "Sign In"
-#     click_link("Create a Fish!")
-#     fill_in "fishname", with: "Trout"
-#     click_button "Create"
-#     expect(page).to_not have_link("Wikipedia", options={href: "http://en.wikipedia.org/wiki/Goldfish"})
-#
-#
-#     #scenario "I can see other users fish when I click on their names"
-#     click_link "blah"
-#     expect(page).to have_link("Goldfish")
-#
-#     #user can favorite fish
-#     click_button "favorite Goldfish"
-#     expect(page).to have_link("Wikipedia", options={href: "http://en.wikipedia.org/wiki/Goldfish"})
-#   end
-# end
-
 

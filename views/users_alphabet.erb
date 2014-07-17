@@ -1,4 +1,7 @@
 <h1>Welcome, <%= @database_connection.sql("select username from users where id = '#{session[:user]}'").reduce["username"]%></h1>
+<br>
+<h3> It's sorted alphabetically</h3>
+<br>
 <ul>
   <% @database_connection.sql("Select username from users order by username ASC").each do |user_hash| %>
     <li><%= user_hash["username"] unless user_hash["username"] == @database_connection.sql("select username from users where id = '#{session[:user]}'").reduce["username"]%></li>
