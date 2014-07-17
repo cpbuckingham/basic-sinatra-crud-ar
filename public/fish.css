@@ -1,5 +1,6 @@
 body {
     background-color:#f4f4f4;
+    text-align: center;
 
 }
 
@@ -15,26 +16,29 @@ header img {
 
 nav {
     background-color: #f4f4f4;  /* Light Grey */
+    text-align: center
 }
 
 #content {
-    background-color: #fff;  /* White */
+    background-color: white;
     display: inline-block;
+    margin-right: auto;
+    margin-left: auto;
 }
 
 footer {
-    background-color: #c5c5c5;  /* Dark Grey */
+    background-color: #f4f4f4;  /* Dark Grey */
 }
 
 .wrapper {
-    margin: auto;
-    width: 980px;
+    margin-left: auto;
+    margin-right: auto
 }
 
 #fish {
-background-color: yellow;
-width: 48%;
-float: right;
+    background-color: yellow;
+    width: 48%;
+    float: right;
 }
 
 #welcome {
@@ -60,10 +64,9 @@ float: right;
     bottom: 25%;
     text-align: center;
     background-color: deeppink;
-    width: 25%;
-    margin-right: 400px;
-    margin-left: 250px;
-
+    width: 85%;
+    margin-right: auto;
+    margin-left: auto;
 }
 
 #login {
@@ -71,8 +74,14 @@ float: right;
     bottom: 25%;
     text-align: center;
     background-color: deeppink;
-    width: 25%;
-    margin-right: 400px;
-    margin-left: 250px;
+    width: 85%;
+    margin-right: auto;
+    margin-left: auto;
+
+}
+#all_the_things {
+    margin-right: auto;
+    margin-left: auto;
+    text-align: left;
 
 }

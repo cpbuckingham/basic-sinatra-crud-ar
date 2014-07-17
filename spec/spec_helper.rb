@@ -1,8 +1,9 @@
 require_relative "./../app"
-require "capybara/rspec"
 ENV["RACK_ENV"] = "test"
 require "rack-flash"
 require "gschool_database_connection"
+require "capybara/rspec"
+
 
 Capybara.app = App
 
